@@ -11,7 +11,7 @@ export const keysEng = [
   ["Tab", "qQ", "wW", "eE", "rR", "tT", "yY", "uU", "iI", "oO", "pP", "[{", "]}", "\\|", "Delete"],
   ["CapsLock", "aA", "sS", "dD", "fF", "gG", "hH", "jJ", "kK", "lL", ";:", "\'\"", "Enter"],
   ["Shift", "zZ", "xX", "cC", "vV", "bB", "nN", "mM", ",<", ".>", "/?", "↑↑", "Shift"],
-  ["Ctrl", "Win", "Alt", "Space", "Alt", "←←", "↓↓", "→→", "Ctrl"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "←←", "↓↓", "→→", "Ctrl"],
 ]
 
 
@@ -20,5 +20,5 @@ export const keysRus = [
   ["Tab", "йЙ", "цЦ", "уУ", "кК", "еЕ", "нН", "гГ", "шШ", "щЩ", "зЗ", "хХ", "ъЪ", "\\\\", "Delete"],
   ["CapsLock", "фФ", "ыЫ", "вВ", "аА", "пП", "рР", "оО", "лЛ", "дД", "жЖ", "эЭ", "Enter"],
   ["Shift", "яЯ", "чЧ", "сС", "мМ", "иИ", "тТ", "ьЬ", "бБ", "юЮ", ".,", "↑↑", "Shift"],
-  ["Ctrl", "Win", "Alt", "Space", "Alt", "←←", "↓↓", "→→", "Ctrl"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "←←", "↓↓", "→→", "Ctrl"],
 ]

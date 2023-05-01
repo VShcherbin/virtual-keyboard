@@ -3,14 +3,21 @@ import { eventCode, keysEng, keysRus } from "./components/keys.js"
 const body = document.querySelector("body")
 let ctrlIsDown = false;
 let capsIsEnable = false;
-let keys = document.getElementsByClassName("keyboard__key")
-console.log(keys)
+let keys = document.getElementsByClassName("keyboard__key");
+
+document.addEventListener('keydown', function (event) {
+  if (true) {
+    event.preventDefault();
+  }
+}, false);
 
 function newElement(tag, cssClass) {
   let element = document.createElement(tag);
   element.classList.add(cssClass)
   return element
 }
+
+
 
 
 function init() {
@@ -149,6 +156,45 @@ document.addEventListener("keydown", function (event) {
   }
 
 })
+
+// add sign in textarea when key is pressed
+document.addEventListener("keydown", (event) => {
+  let textarea = document.querySelector(".textarea")
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i].id === event.code && event.key.length < 2) {
+      textarea.setRangeText(`${keys[i].innerHTML}`);
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+    }
+  }
+  if (event.code === "Enter") {
+    textarea.setRangeText(`${"\n"}`);
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+  }
+  if (event.code === "Tab") {
+    textarea.setRangeText("    ");
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+  }
+  if (event.code === "ArrowLeft") {
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1
+    console.log(textarea.selectionStart)
+  }
+  if (event.code === "ArrowUp") {
+
+  }
+  if (event.code === "ArrowRight") {
+
+  }
+  if (event.code === "ArrowDown") {
+
+  }
+})
+
+document.querySelectorAll(".keyboard__key").forEach(elem => {
+
+});
+
+
+
 
 
 
