@@ -19,8 +19,8 @@ function newElement(tag, cssClass) {
 
 
 
-
-function init() {
+// add start structure of HTML
+(function init() {
 
   let container = newElement("div", "container")
   body.prepend(container)
@@ -57,9 +57,9 @@ function init() {
   container.append(switchLang)
 
 
-}
+})()
 
-init()
+
 
 // change active key during keydown
 document.addEventListener("keydown", (event) => {
@@ -86,8 +86,8 @@ document.querySelectorAll(".keyboard__key").forEach(elem => {
 
 // change lang
 document.addEventListener("keydown", function (event) {
-  if (event.key == "Control") ctrlIsDown = true;
-  if (event.key == "Alt" && ctrlIsDown) {
+  if (event.code == "ControlLeft") ctrlIsDown = true;
+  if (event.code == "AltLeft" && ctrlIsDown) {
     ctrlIsDown = false;
     if (document.getElementById("KeyQ").innerHTML === "q" || document.getElementById("KeyQ").innerHTML === "Q") {
       for (let i = 0; i < keys.length; i++) {
@@ -106,15 +106,25 @@ document.addEventListener("keydown", function (event) {
 // change keys while shift is down
 document.addEventListener("keydown", function (event) {
   if (event.key == "Shift") {
-    if (document.getElementById("KeyQ").innerHTML === "й" || document.getElementById("KeyQ").innerHTML === "Й") {
+    if (document.getElementById("KeyQ").innerHTML === "й") {
       for (let i = 0; i < keys.length; i++) {
         let arrayRusKeys = [].concat(...keysRus);
         (arrayRusKeys[i].length < 3) ? keys[i].innerHTML = arrayRusKeys[i][1] : keys[i].innerHTML = arrayRusKeys[i];
       }
-    } else if (document.getElementById("KeyQ").innerHTML === "q" || document.getElementById("KeyQ").innerHTML === "Q") {
+    } else if (document.getElementById("KeyQ").innerHTML === "q") {
       for (let i = 0; i < keys.length; i++) {
         let arrayEngKeys = [].concat(...keysEng);
         (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][1] : keys[i].innerHTML = arrayEngKeys[i];
+      }
+    } else if (document.getElementById("KeyQ").innerHTML === "Й") {
+      for (let i = 0; i < keys.length; i++) {
+        let arrayEngKeys = [].concat(...keysEng);
+        (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][0] : keys[i].innerHTML = arrayEngKeys[i];
+      }
+    } else if (document.getElementById("KeyQ").innerHTML === "Q") {
+      for (let i = 0; i < keys.length; i++) {
+        let arrayEngKeys = [].concat(...keysEng);
+        (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][0] : keys[i].innerHTML = arrayEngKeys[i];
       }
     }
   }
@@ -122,12 +132,22 @@ document.addEventListener("keydown", function (event) {
 
 document.addEventListener("keyup", function (event) {
   if (event.key == "Shift") {
-    if (document.getElementById("KeyQ").innerHTML === "й" || document.getElementById("KeyQ").innerHTML === "Й") {
+    if (document.getElementById("KeyQ").innerHTML === "й") {
       for (let i = 0; i < keys.length; i++) {
         let arrayRusKeys = [].concat(...keysRus);
-        (arrayRusKeys[i].length < 3) ? keys[i].innerHTML = arrayRusKeys[i][0] : keys[i].innerHTML = arrayRusKeys[i];
+        (arrayRusKeys[i].length < 3) ? keys[i].innerHTML = arrayRusKeys[i][1] : keys[i].innerHTML = arrayRusKeys[i];
       }
-    } else if (document.getElementById("KeyQ").innerHTML === "q" || document.getElementById("KeyQ").innerHTML === "Q") {
+    } else if (document.getElementById("KeyQ").innerHTML === "q") {
+      for (let i = 0; i < keys.length; i++) {
+        let arrayEngKeys = [].concat(...keysEng);
+        (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][1] : keys[i].innerHTML = arrayEngKeys[i];
+      }
+    } else if (document.getElementById("KeyQ").innerHTML === "Q") {
+      for (let i = 0; i < keys.length; i++) {
+        let arrayEngKeys = [].concat(...keysEng);
+        (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][0] : keys[i].innerHTML = arrayEngKeys[i];
+      }
+    } else if (document.getElementById("KeyQ").innerHTML === "Й") {
       for (let i = 0; i < keys.length; i++) {
         let arrayEngKeys = [].concat(...keysEng);
         (arrayEngKeys[i].length < 3) ? keys[i].innerHTML = arrayEngKeys[i][0] : keys[i].innerHTML = arrayEngKeys[i];
@@ -205,7 +225,6 @@ document.addEventListener("keydown", (event) => {
 // add sign in textarea when mouse click on virtual keys
 document.addEventListener("click", function (event) {
   let textarea = document.querySelector(".textarea");
-  console.log(event.target)
   if (event.target.innerHTML.length < 2 && !event.target.innerHTML.match(/[→↓←↑]/)) {
     textarea.setRangeText(`${event.target.innerHTML}`);
     textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
