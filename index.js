@@ -30,6 +30,7 @@ function init() {
   container.append(title)
 
   let textarea = newElement("textarea", "textarea")
+  textarea.setAttribute('cols', "96")
   container.append(textarea)
 
   let keyboard = newElement("div", "keyboard")
@@ -175,10 +176,14 @@ document.addEventListener("keydown", (event) => {
     textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 4;
   }
   if (event.code === "ArrowLeft") {
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
+    if (textarea.selectionStart != 0) {
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
+    }
   }
   if (event.code === "ArrowUp") {
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 96;
+    if (textarea.selectionStart > 96) {
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 96;
+    }
   }
   if (event.code === "ArrowRight") {
     textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
@@ -187,21 +192,54 @@ document.addEventListener("keydown", (event) => {
     textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 96;
   }
   if (event.code === "Backspace") {
-    textarea.setRangeText("", textarea.selectionStart - 1, textarea.selectionEnd);
+    if (textarea.selectionStart !== 0) {
+      textarea.setRangeText("", textarea.selectionStart - 1, textarea.selectionEnd);
+    }
   }
   if (event.code === "Delete") {
     textarea.setRangeText("", textarea.selectionStart, textarea.selectionEnd + 1);
   }
 })
 
-document.querySelectorAll(".keyboard__key").forEach(elem => {
 
-});
-
-
-
-
-
-
-
-
+// add sign in textarea when mouse click on virtual keys
+document.addEventListener("click", function (event) {
+  let textarea = document.querySelector(".textarea");
+  console.log(event.target)
+  if (event.target.innerHTML.length < 2 && !event.target.innerHTML.match(/[→↓←↑]/)) {
+    textarea.setRangeText(`${event.target.innerHTML}`);
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
+  }
+  if (event.target.id === "Enter") {
+    textarea.setRangeText(`${"\n"}`);
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
+  }
+  if (event.target.id === "Tab") {
+    textarea.setRangeText(`${"    "}`);
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 4;
+  }
+  if (event.target.id === "ArrowLeft") {
+    if (textarea.selectionStart != 0) {
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
+    }
+  }
+  if (event.target.id === "ArrowUp") {
+    if (textarea.selectionStart > 96) {
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 96;
+    }
+  }
+  if (event.target.id === "ArrowRight") {
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
+  }
+  if (event.target.id === "ArrowDown") {
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 96;
+  }
+  if (event.target.id === "Backspace") {
+    if (textarea.selectionStart !== 0) {
+      textarea.setRangeText("", textarea.selectionStart - 1, textarea.selectionEnd);
+    }
+  }
+  if (event.target.id === "Delete") {
+    textarea.setRangeText("", textarea.selectionStart, textarea.selectionEnd + 1);
+  }
+})
