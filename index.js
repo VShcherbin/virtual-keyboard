@@ -159,33 +159,38 @@ document.addEventListener("keydown", function (event) {
 
 // add sign in textarea when key is pressed
 document.addEventListener("keydown", (event) => {
-  let textarea = document.querySelector(".textarea")
+  let textarea = document.querySelector(".textarea");
   for (let i = 0; i < keys.length; i++) {
     if (keys[i].id === event.code && event.key.length < 2) {
       textarea.setRangeText(`${keys[i].innerHTML}`);
-      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+      textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
     }
   }
   if (event.code === "Enter") {
     textarea.setRangeText(`${"\n"}`);
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
   }
   if (event.code === "Tab") {
-    textarea.setRangeText("    ");
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1
+    textarea.setRangeText(`${"    "}`);
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 4;
   }
   if (event.code === "ArrowLeft") {
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1
-    console.log(textarea.selectionStart)
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
   }
   if (event.code === "ArrowUp") {
-
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 96;
   }
   if (event.code === "ArrowRight") {
-
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 1;
   }
   if (event.code === "ArrowDown") {
-
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart + 96;
+  }
+  if (event.code === "Backspace") {
+    textarea.setRangeText("", textarea.selectionStart - 1, textarea.selectionEnd);
+  }
+  if (event.code === "Delete") {
+    textarea.setRangeText("", textarea.selectionStart, textarea.selectionEnd + 1);
   }
 })
 
